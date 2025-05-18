@@ -11,6 +11,13 @@ public class Dipendente {
         this.dipartimento = Dipartimento.HR;
     }
 
+    public Dipendente(String nome) {
+        this.nome = nome;
+        this.eta = 18;
+        this.stipendio = 1000;
+        this.dipartimento = Dipartimento.HR;
+    }
+
     public Dipendente(String nome, int eta, double stipendio, Dipartimento dipartimento) {
         this.nome = nome;
         this.eta = eta;
