@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -37,5 +38,38 @@ public class Main {
         for(Dipendente dipendente : dipendenti){
             System.out.print(dipendente.getNome()+" ");
         }
+
+        List<Dipendente> dipendentiPerEta = dipendenti.stream()
+                .sorted((d1, d2) -> Integer.compare(d1.getEta(), d2.getEta()))
+                .collect(Collectors.toList());
+
+        System.out.println("Dipendenti ordinati per età:");
+        for(Dipendente dipendente : dipendentiPerEta){
+            System.out.println(dipendente.getNome()+" "+dipendente.getEta());
+        }
+        System.out.println("***************************");
+        double stipendioMedio = dipendenti.stream()
+                .mapToDouble(Dipendente::getStipendio)
+                .average().getAsDouble();
+
+        System.out.println("Stipendio medio: " + stipendioMedio);
+        System.out.println("***************************");
+        Map<Dipartimento, List<Dipendente>> dipendentiPerDipartimento = dipendenti.stream()
+                .collect(Collectors.groupingBy(Dipendente::getDipartimento));
+
+        System.out.println("Dipendenti raggruppati per dipartimento:");
+        for(Dipartimento dipartimento : dipendentiPerDipartimento.keySet()){
+            System.out.print("Dipartimento: "+dipartimento+"; Dipendenti: ");
+            List<Dipendente> dipendentiDelDipartimento = dipendentiPerDipartimento.get(dipartimento);
+            for(Dipendente dipendente : dipendentiDelDipartimento){
+                System.out.print(dipendente.getNome()+" ");
+            }
+            System.out.println(" ");
+        }
+        System.out.println("***************************");
+
+        // 5. Stampare i risultati con forEach
+        System.out.println("Lista completa dipendenti:");
+        dipendenti.forEach(System.out::println);
     }
 }
